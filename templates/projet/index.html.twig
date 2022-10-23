@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet index{% endblock %}
+
+{% block body %}
+{{ include('navbar/navbar.html.twig') }}
+<div class="container">
+    <h1 class="text-center mt-5 mb-5">listes des projets publiés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>CodePostal</th>
+                <th>Ville</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>{{ projet.id }}</td>
+                <td>{{ projet.titre }}</td>
+                <td>{{ projet.description }}</td>
+                <td>{{ projet.codePostal }}</td>
+                <td>{{ projet.ville }}</td>
+                <td>{{ projet.createdAt ? projet.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
+                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_projet_new') }}">Create new</a>
+</div>
+{% block footer %}
+    {{ include('footer/footer.html.twig') }}
+{% endblock %}
+{% endblock %}

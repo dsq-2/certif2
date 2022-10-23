@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {% endblock %}
+
+{% block body %}
+{{ include('navbar/navbar.html.twig') }}
+{% block header %}
+<div class="home_image">
+	<div class="container">
+		<div class="">
+            <h1 class="mt-5 mb-5 ms-3">Trouver un artisan près de chez vous</h1>
+			<div class="home_filter">
+				<div class="row ">
+					<div class=" col form-group">
+						<input type="text" class="form-control" id="" placeholder="">
+					</div>
+					<div class=" col form-group">
+						<input type="text" class="form-control" id="" placeholder="code postal">
+					</div>
+					<div class=" col-md-4 form-group mt-2">
+						<button type="submit" name="filtrer">rechercher</button>
+					</div>
+				</div>
+			</div>
+
+            <div class="row mt-5">
+                <p><a href="#"> <i class="fa-solid fa-circle-right fa-2x"></i> s'inscrire en tant que artisan </a></p>
+            </div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block main %}
+
+{% block section %}
+<div class="infos shadow-sm p-2 ">
+	<div class="container">
+		<h2 class="mt-2 mb-5">Comment trouvez un artisan?</h2>
+		<div class="row">
+			<div class="col">
+				<h4>Publier votre Projet</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+			</div>
+			<div class="col">
+				<h4>contactez les artisans
+				</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+			</div>
+			<div class="col">
+				<h4>choisissez les artisans
+				</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+{% endblock %}
+{% block section2 %}
+<div class="container">
+	<div class="row mt-5 section2">
+		<div class="col">
+			<h5>1200</h5>
+			<P>professionels</P>
+		</div>
+		<div class="col">
+			<h5>250</h5>
+			<P>Projets</P>
+		</div>
+	</div>
+	<p class="text-center mt-3">
+		<a href="{{path('app_projet_new')}}" class="btn btn-primary btn-lg rounded ">publiez votre projet</a>
+	</p>
+</div>
+{% endblock %}
+
+{% endblock %}
+{% block footer %}
+
+{{ include('footer/footer.html.twig') }}
+
+
+{% endblock %}
+
+
+
+{% endblock %}
