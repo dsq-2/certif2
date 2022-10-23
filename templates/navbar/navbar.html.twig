@@ -19,36 +19,24 @@
                   <li class="nav-item">
                         <a class="nav-link" href="{{path('app_projet_new')}}">publier un projet</a>
                   </li>
-                  <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                  <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">projet</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
-                  </li>
             </ul>
 
       <ul class="navbar-nav ms-auto">
-
       {% if app.user %}
             <li class="nav-item">
                   <a class="nav-link" href="#">mon compte</a>
             </li>
             <li class="nav-item">
-            {# {{path('app_logout')}} #}
-                  <a class="nav-link" href="#">deconnexion</a>
+                  <a class="nav-link" href="{{path('app_logout')}}">deconnexion</a>
             </li>
       {% else %}
             <li class="nav-item">
-            {# {{path('app_login')}} #}
-                  <a class="nav-link" href="">connexion</a>
+            
+                  <a class="nav-link" href="{{path('app_login')}}">connexion</a>
             </li>
             <li class="nav-item">
-            {# {{path('app_register')}} #}
-                  <a class="nav-link" href="">inscription</a>
+            
+                  <a class="nav-link" href="{{path('app_register')}}">inscription</a>
             </li>
       {% endif %}
             
