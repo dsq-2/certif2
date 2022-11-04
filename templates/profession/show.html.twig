@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profession{% endblock %}
+
+{% block body %}
+
+{# {% block header %}
+{{ include('navbar/navbar.html.twig') }}
+{% endblock  %} #}
+
+
+    {% block section %}
+        <div class="container my-5">
+            <div class="">
+                <h1>Besoin d'un {{profession.metier}} près de chez vous?</h1>
+                <form action = "" method="Post">
+                    <div class="form-group">   
+                        <input type="text" class="form-control col-md-5" id=""  placeholder="Enter votre code postal">
+                        <button type="submit" class="btn btn-primary mt-4">rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>       
+    {% endblock %}
+
+    {% block section2 %}
+        <div class="container-fluid" style="height:300px;">
+        </div>       
+    {% endblock %}
+
+    {% block section3 %}
+        <div class="container " style="height:900px; margin-top:-100px;">
+
+			<div class ="row">	
+				{% for u in users %}
+				<a href="{{path('app_user_show' , {'id' : u.id})}}" class=" text-decoration-none d-block card col-6 border-light my-3" >
+				{# <div class="card-header">Header</div> #}
+					<div class="card-header d-flex justify-content-between">
+						<h5>{{ u.nom }}</h5>
+						<div class="d-flex">
+						<p><small>{{ u.created_at ? u.created_at|date('d-m-Y') : '' }}</small></p>					
+						</div>
+					</div>
+				
+					
+					<div class="card-body">
+						<div class="d-flex justify-content-between"></div>
+						<p class="card-text">{{ u.description }}</p>
+						
+					</div>
+				</a>
+				{% endfor  %}
+			</div>
+				{# <div class="navigation d-flex justify-content-center">
+					{{ knp_pagination_render(users) }}
+				</div> #}
+		</div>       
+    {% endblock %}
+    
+    
+    
+    {% block section4 %}
+        <div class="container">
+        <h5 class="mt-5 mb-5" style="font-size: 50px;"> Autres Professions </h5>
+
+            <div class="d-flex justify-content-between flex-wrap ">
+					{% for p in professions %}
+                        <div class="row">
+                            <div class="card col text-center d-flex align-items-center justify-content-center  mb-5 ms-2 fs-5" style="width:180px; "><a class="text-decoration-none fst-normal metier" href="{{path('app_profession_show' , {'id':p.id})}}">{{ p.metier}}</a>
+                            </div>
+                        </div>
+					{% endfor %}
+				</div>
+        </div>       
+    {% endblock %}
+
+
+{# {% block footer %}
+{{ include('footer/footer.html.twig') }}
+{% endblock  %} #}
+
+
+{% endblock %}

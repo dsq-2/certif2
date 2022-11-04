@@ -6,6 +6,7 @@ use App\Repository\ProfessionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfessionRepository::class)]
 class Profession
@@ -13,12 +14,15 @@ class Profession
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("post:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups("post:read")]
     private ?string $metier = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'professions')]
+    
     private Collection $users;
 
     public function __construct()
@@ -46,6 +50,7 @@ class Profession
     /**
      * @return Collection<int, User>
      */
+    #[Groups("post:read")]
     public function getUsers(): Collection
     {
         return $this->users;

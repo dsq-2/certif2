@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+{# {% block header %}
+{{ include('navbar/navbar.html.twig') }}
+{% endblock  %} #}
+<div class="container">
+    <h1>Mon profil</h1>
+    {% block Contact %}
+        <h2 class="my-5">  Contact </h2>
+        
+    {% endblock %}
+    
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            {# <tr>
+                <th>Adresse</th>
+                <td>{{ user.adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ user.codePostal }}</td>
+            </tr> #}
+            {# <tr>
+                <th>Ville</th>
+                <td>{{ user.ville }}</td>
+            </tr> #}
+            <tr>
+                <th>Telephone</th>
+                <td>{{ user.telephone }}</td>
+            </tr>
+            <tr>
+                <th>NrSiret</th>
+                <td>{{ user.nrSiret }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('home') }}">Acceuil</a>
+
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">editer</a>
+
+
+    {% block Projets %}
+        
+        <h2 class="my-5"> Projets Publiés </h2>
+
+            <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>CodePostal</th>
+                <th>Ville</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for projet in user.projets %}
+            <tr>
+                <td>{{ projet.titre }}</td>
+                <td>{{ projet.description }}</td>
+                <td>{{ projet.codePostal }}</td>
+                <td>{{ projet.ville }}</td>
+                <td>
+                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
+                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+                    <a href="{{ path('app_projet_delete', {'id': projet.id}) }}">supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+
+
+        
+    {% endblock %}
+    {% block Realisations %}
+        <h2 class="my-5"> Realisations</h2>
+        
+    {% endblock %}
+    
+    {% block Portfolio %}
+        <h2 class="my-5">Portfolio</h2>
+        
+    {% endblock %}
+    {{ include('user/_delete_form.html.twig') }}
+</div>
+    {# {% block footer %}
+{{ include('footer/footer.html.twig') }}
+{% endblock  %} #}
+{% endblock %}

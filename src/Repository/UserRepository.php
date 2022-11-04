@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\SearchFilter;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -56,6 +60,96 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+
+
+    // public function userByProfession($metier, $codePostal='69000'): array
+    // {
+    //     $conn = $this->getEntityManager()->getConnection();
+    //     if($metier){
+    //     $sql = "SELECT nom, metier FROM `user` 
+    //     join user_profession on user_profession.user_id = user.id 
+    //     join profession on user_profession.profession_id = profession.id
+    //     WHERE is_pro = 1 AND   metier = :metier";
+    //     }elseif($codePostal){
+
+    //     }
+    //     $stmt = $conn->prepare($sql);
+    //     $resultSet = $stmt->executeQuery(['metier' => $metier]);
+
+    //     // returns an array of arrays (i.e. a raw data set)
+    //     return $resultSet->fetchAllAssociative();
+    // }
+
+
+    // public function art(){
+    //     return    $this->getEnti"SELECT nom, metier FROM `user` 
+    //     join user_profession on user_profession.user_id = user.id 
+    //     join profession on user_profession.profession_id = profession.id
+    //     WHERE is_pro = 1 AND metier = 'vitrier'";
+        
+    // }
+
+
+   
+
+    public function findAllArtisans(SearchFilter $search):array 
+    {
+        //allvisibleQuery
+        // return $this->findArtisans();
+                
+         
+
+        $query = $this->findArtisans();
+        // if($search->getMetier()){
+        //     $query = $query->andWhere('u.metier = :metier')
+        //     ;
+        //     $query->setParameter('metier', $search->getMetier());
+        // }
+            if ($search->getMetier()){
+                $metier = $search->getMetier();
+                $conn = $this->getEntityManager()->getConnection();
+                $sql = "SELECT user.nom,profession.metier,user.description FROM `user` 
+        join user_profession on user_profession.user_id = user.id 
+        join profession on user_profession.profession_id = profession.id
+        WHERE is_pro = 1 AND   metier = :metier";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['metier' => $metier]);
+        return $resultSet->fetchAllAssociative();
+
+            }
+
+            
+
+        if($search->getCodePostal()){
+            $query = $query->andWhere( 'u.codePostal = :codePostal');
+            $query->setParameter('codePostal', $search->getCodePostal());
+        }
+        return $query->getQuery()->getResult();
+            
+    }
+
+    public function findArtisans():QueryBuilder
+    {
+        $value = null;
+        return $this->createQueryBuilder('u')
+                ->where('u.isPro = 1 ');
+    }
+
+
+    // public function findProjet()
+    // {
+    //     $query = $this->createQueryBuilder('SELECT nom,titre, projet.description FROM `projet` join user on projet.user_id = user.id');
+    //     return $query->getQuery()->getResult();
+    // }
+    // public function findProjet($user)
+    // {
+    //     $conn = $this->getEntityManager()->getConnection();
+    //     $sql="SELECT nom,titre, projet.description FROM `projet` join user on projet.user_id = user.id";
+    //     $stmt = $conn->prepare($sql);
+    //     $resultSet = $stmt->executeQuery();
+    //     return $resultSet->fetchAllAssociative();
+    // }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
@@ -70,6 +164,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getResult()
 //        ;
 //    }
+
 
 //    public function findOneBySomeField($value): ?User
 //    {

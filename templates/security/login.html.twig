@@ -3,14 +3,14 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-{% block header %}
+{# {% block header %}
 {{ include('navbar/navbar.html.twig')}}
-{% endblock %}
+{% endblock %} #}
 <div class="container">
-    <div class="card mb-3 mt-5 ms-5 login_form" style="max-width: 940px;">
+    <div class="card mb-3 mt-5 mx-auto login_form" style="max-width: 940px;">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="..." class="img-fluid rounded-start" alt="...">
+                <img src="{{asset('img/loginImg.jpg')}}" class="img-fluid rounded-start h-auto max-width:100%" alt="...">
             </div>
             <div class="col-md-8 border border-ligth bg-ligth shadow-lg p-5">
                 <div class="card-body">
@@ -28,10 +28,10 @@
                             </div>
                         {% endif %}
 
-                        <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
-                        <label for="inputEmail">Email</label>
+                        <h1 class="h3 mb-4 font-weight-normal text-center">Please sign in</h1>
+                        <label class="mb-3" for="inputEmail">Email</label>
                         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                        <label for="inputPassword">Password</label>
+                        <label class="mb-3" for="inputPassword">Password</label>
                         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
                         <input
@@ -43,13 +43,15 @@
                          #}
                                 <div class="checkbox mt-3 mb-3">
                                     <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
+                                        <input type="checkbox" name="_remember_me"> Remember me <a class="ms-3" href="{{path('app_forgot_password_request')}}">mot de pass oublié </a>
                                     </label>
                                 </div>                           
-
-                        <button class="btn btn-lg btn-primary mt-4" type="submit">
-                            Sign in
-                        </button>
+                        <div>
+                            <p class="text-center"><button class="btn btn-lg btn-primary mt-3" type="submit">
+                                Sign in
+                            </button>
+                            </p>
+                        </div>
                     </form>
 
                 </div>
@@ -57,7 +59,7 @@
         </div>
     </div>
 </div>
-{% block footer %}
+{# {% block footer %}
 {{ include('footer/footer.html.twig')}}
-{% endblock %}
+{% endblock %} #}
 {% endblock %}

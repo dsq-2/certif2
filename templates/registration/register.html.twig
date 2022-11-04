@@ -1,34 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-{% block header %}
+{# {% block header %}
 {{ include('navbar/navbar.html.twig')}}
-{% endblock %}
+{% endblock %} #}
 <div class="container">
-    <h1 class="text-center mt-5 mb-5"> Register </h1>
+    <div class="card border-light mt-5 shadow-sm p-3">
+        <div class="card-header">
+            <h1 class="text-center mt-5 mb-5"> Inscription </h1>
+        </div>
+        <div class="card-body">
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.professions) }}
+            {{ form_row(registrationForm.prenom) }}
+            {{ form_row(registrationForm.nom) }}
+            {{ form_row(registrationForm.adresse) }}
+            {{ form_row(registrationForm.codePostal) }}
+            {{ form_row(registrationForm.ville) }}
+            {{ form_row(registrationForm.telephone) }}
+            {{ form_row(registrationForm.nrSiret) }}
+            {{ form_row(registrationForm.email) }}
+            {# {{ form_row(registrationForm.email) }} #}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.professions) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.adresse) }}
-        {{ form_row(registrationForm.codePostal) }}
-        {{ form_row(registrationForm.ville) }}
-        {{ form_row(registrationForm.telephone) }}
-        {{ form_row(registrationForm.nrSiret) }}
-        {{ form_row(registrationForm.email) }}
-        {# {{ form_row(registrationForm.email) }} #}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn btn-primary">Register</button>
-    {{ form_end(registrationForm) }}
+            <button type="submit " class="btn btn-primary mt-3">Register</button>
+        {{ form_end(registrationForm) }}
+        </div>
+    </div>
 </div>
-{% block footer %}
+{# {% block footer %}
 {{ include('footer/footer.html.twig')}}
-{% endblock %}
+{% endblock %} #}
 {% endblock %}

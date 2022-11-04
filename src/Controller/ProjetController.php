@@ -5,19 +5,24 @@ namespace App\Controller;
 use App\Entity\Projet;
 use App\Form\ProjetType;
 use App\Repository\ProjetRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/projet')]
 class ProjetController extends AbstractController
 {
     #[Route('/', name: 'app_projet_index', methods: ['GET'])]
-    public function index(ProjetRepository $projetRepository): Response
+    public function index(ProjetRepository $projetRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $projets = $paginator->paginate($projetRepository->findAll(),
+        $request->query->getInt('page',1),20);
+        
         return $this->render('projet/index.html.twig', [
-            'projets' => $projetRepository->findAll(),
+            'projets' => $projets,
+            
         ]);
     }
 
@@ -29,11 +34,13 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $projet->setUser($this->getUser());
             $projetRepository->save($projet, true);
-
             return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        // else {
+        //     return $this->redirectToRoute('app_login');
+        // }
         return $this->renderForm('projet/new.html.twig', [
             'projet' => $projet,
             'form' => $form,
@@ -41,10 +48,10 @@ class ProjetController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_projet_show', methods: ['GET'])]
-    public function show(Projet $projet): Response
+    public function show(Projet $projets): Response
     {
         return $this->render('projet/show.html.twig', [
-            'projet' => $projet,
+            'projet' => $projets,
         ]);
     }
 

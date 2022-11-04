@@ -31,7 +31,11 @@ class RegistrationFormType extends AbstractType
                 },
                 'choice_label'=>'metier',
                 'multiple' => true ,
-                'expanded' => true
+                'expanded' => true,
+                'attr' =>[
+                    'class' =>'p-2',
+                    'label' =>'P-2'
+                ]
             ])
             ->add('prenom', TextType::class, [
                 'attr' => [

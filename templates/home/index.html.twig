@@ -1,101 +1,232 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {% endblock %}
+{% block title %}Hello
+{% endblock %}
+
 
 {% block body %}
-{{ include('navbar/navbar.html.twig') }}
-{% block header %}
-<div class="home_image">
-	<div class="container">
-		<div class="">
-            <h1 class="mt-5 mb-5 ms-3">Trouver un artisan près de chez vous</h1>
-			<div class="home_filter">
-				<div class="row ">
-					<div class=" col form-group">
-						<input type="text" class="form-control" id="" placeholder="">
+	{# {{ include('navbar/navbar.html.twig') }} #}
+	{% block header1 %}
+
+
+		<div class="home_image ">
+
+			<div class="container">
+				<div class="">
+					<h1 class=" my-5 font-weight-bold">Trouver un artisan près de chez vous</h1>
+					<div class="home_filter mx-auto  p-5 d-flex" style="width:900px">
+						<div class="jumbotron">
+							
+								{{form_start(form)}}
+								<div class="form-row my-3 d-flex ">
+									<div class="col ">
+										{{form_row(form.metier)}}
+									</div>
+									<div class="col mx-3">
+										{{form_row(form.codePostal)}}
+									</div>
+									<div class="col">
+										<button class="btn btn-lg btn-primary rounded-pill mt-2">Search</button>
+									</div>
+								</div>
+								{{form_end(form)}}
+							
+						</div>
+
 					</div>
-					<div class=" col form-group">
-						<input type="text" class="form-control" id="" placeholder="code postal">
-					</div>
-					<div class=" col-md-4 form-group mt-2">
-						<button type="submit" name="filtrer">rechercher</button>
+
+					<div class="row mt-5">
+						<div class="border rounded-pill w-25">
+							<p>
+								<a href="{{path('app_register')}}">
+									<i class="fa-solid fa-circle-right fa-2x ms-2 pt-2"></i>
+									s'inscrire en tant que artisan
+								</a>
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
 
-            <div class="row mt-5">
-                <p><a href="#"> <i class="fa-solid fa-circle-right fa-2x"></i> s'inscrire en tant que artisan </a></p>
-            </div>
-		</div>
-	</div>
-</div>
-{% endblock %}
-
-{% block main %}
-
-{% block section %}
-<div class="infos shadow-sm p-2 ">
-	<div class="container">
-		<h2 class="mt-2 mb-5">Comment trouvez un artisan?</h2>
-		<div class="row">
-			<div class="col">
-				<h4>Publier votre Projet</h4>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
-			</div>
-			<div class="col">
-				<h4>contactez les artisans
-				</h4>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
-			</div>
-			<div class="col">
-				<h4>choisissez les artisans
-				</h4>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+				{# v> #}
 			</div>
 		</div>
+	{% endblock %}
 
-	</div>
+	{% block main %}
 
-</div>
+		{% block section %}
+			<div class="infos shadow-sm py-5">
+				<div class="container">
+					<h2 class="my-5">Comment trouvez un artisan?</h2>
+					<div class="row ">
+						<div class="col">
+							<h4>1.  Publier votre Projet</h4>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+						</div>
+						<div class="col">
+							<h4>2.  contactez les artisans</h4>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+						</div>
+						<div class="col">
+							<h4>3.  choisissez les artisans</h4>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quibusdam praesentium quod rerum vitae reiciendis ab dicta sequi optio nobis, doloribus inventore cum esse dolor!</p>
+						</div>
+					</div>
 
-{% endblock %}
-{% block section2 %}
-<div class="container">
-	<div class="row mt-5 section2">
-		<div class="col">
-			<h5>1200</h5>
-			<P>professionels</P>
+				</div>
+
+			</div>
+
+		{% endblock %}
+
+		{% block section2 %}
+		<div class="container">
+
+			<div class ="row">	
+				{% for u in users %}
+				<a href="{{path('app_user_show' , {'id':u.id})}}" class=" text-decoration-none d-block card col-6 border-light my-3" >
+				{# <div class="card-header">Header</div> #}
+					<div class="card-header d-flex justify-content-between">
+						<h5>{{ u.nom }}</h5>
+						<div class="d-flex">
+						<p><small>{{ u.createdAt ? u.createdAt|date('d-m-Y') : '' }}</small></p>					
+						</div>
+					</div>
+				
+					
+					<div class="card-body">
+						<div class="d-flex justify-content-between"></div>
+						<p class="card-text">{{ u.description }}</p>
+						
+					</div>
+				</a>
+				{% endfor  %}
+			</div>
+				<div class="navigation d-flex justify-content-center">
+					{{ knp_pagination_render(users) }}
+				</div>
 		</div>
-		<div class="col">
-			<h5>250</h5>
-			<P>Projets</P>
-		</div>
-	</div>
-	<p class="text-center mt-3">
-		<a href="{{path('app_projet_new')}}" class="btn btn-primary btn-lg rounded ">publiez votre projet</a>
-	</p>
-</div>
-{% endblock %}
 
-{% block section3 %}
-<div class="container-fuid">
-	<div class="container">
-		<div class="section3">
-		</div>
-	</div>
-</div>
-{% endblock %}
+		{% endblock %}
 
-{% endblock %}
+		
+
+		{% block section3 %}
+			<div class="container-fuid">
+				<div class="container">
+					<div class="metiers pt-5">
+						<div id='ajax'>
+							<div>
+								<h2 class="mt-5 mb-5 text-center">Trouvez des professsionels pour vos differentes Prestations</h2>
+
+								<ul class="list-unstyled ">
+									<div class="d-flex justify-content-between flex-wrap ">
+										{% for p in professions %}
+											<li class=" shadow-sm hover d-block text-center d-flex align-items-center justify-content-center flex-wrap  mb-5 ms-2 fs-5" style="width:180px; ">
+												<a class="text-decoration-none fst-normal metier" href="{{path('app_profession_show' , {'id':p.id})}}">{{ p.metier}}</a>
+											</li>
+										{% endfor %}
+									</div>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				{% endblock %}
+
+				{% block section4 %}
+					<div class="container">
+						<div class="row my-5">
+							<div class="col text-center">
+								{% set nbrArtisans = 0 %}  {# calcul du nombre de professionel#}
+							{% for u in users  %}
+								{% set nbrArtisans = nbrArtisans + 1 %}
+							{% endfor %}
+								<h5 style="font-size:40px;">{{nbrArtisans}}</h5>
+								{# <h5 style="font-size:40px;">{{u.id|length}}</h5> #}
+								<P style="font-size:30px;">professionels</P>
+							</div>
+
+							<div class="col text-center">
+	
+								{% set count = 0 %}    {# calcul du nombre de projet#}
+							{% for p in projet  %}
+								{% set count = count + 1 %}
+							{% endfor %}
+								<h5 style="font-size:40px;">{{count}}</h5>
+								<P style="font-size:30px;">Projets publiés</P>
+							</div>
+
+						</div>
+						<p class="text-center my-3">
+							{% if app.user %}
+							<a href="{{path('app_projet_new')}}" class="btn btn-primary btn-lg rounded ">publiez votre projet</a>
+							{% else %}
+							<a href="{{path('app_register')}}" class="btn btn-primary btn-lg rounded ">publiez votre projet</a>
+							{% endif  %}
+						</p>
+					</div>
+				</div>
+
+			{% endblock %}
 
 
-{% block footer %}
-
-{{ include('footer/footer.html.twig') }}
+			{# {% endblock %}  #}
 
 
-{% endblock %}
+		{% endblock %}
 
 
+		{# {% block footer %}
+			{{ include('footer/footer.html.twig') }}
+		{% endblock %} #}
 
-{% endblock %}
+		{% block javascripts %}
+			<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+			{# axios.get(url).then(function(response){ #}
+
+		{# }) #}
+			{# axios.get(url).then(function(response){
+					}) #}
+			{# profData = data;
+			console.log(profData);
+			console.log(profData.metier); #}
+			{# 
+					<script>
+			function afficheMetier(e) {
+			e.preventDefault();
+			
+			const url = this.href;
+			
+			console.log(url);
+			let r = fetch(url)
+			.then(response => response.json())
+			.then(data => { 
+			profData = data;
+				console.log(profData)
+			
+			
+			
+			
+			
+			}) 
+			
+			
+			
+			
+			
+			
+			
+			}
+			
+			
+			document.querySelectorAll('a.metier').forEach(function (link) {
+			link.addEventListener('click', afficheMetier);
+			})
+			</script> #}
+
+
+		{% endblock %}
+	{% endblock %}
+

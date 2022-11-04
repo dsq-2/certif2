@@ -3,7 +3,9 @@
 {% block title %}Projet{% endblock %}
 
 {% block body %}
-{{ include('navbar/navbar.html.twig')}}
+{# {% block header %}
+{{ include('navbar/navbar.html.twig') }}
+{% endblock  %} #}
 <div class="container">
     <h1>Projet</h1>
 
@@ -41,6 +43,9 @@
     <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
 
     {{ include('projet/_delete_form.html.twig') }}
-    {{ include('footer/footer.html.twig')}}
 </div>
+
+{# {% block footer %}
+    {{ include('footer/footer.html.twig') }}
+{% endblock  %} #}
 {% endblock %}

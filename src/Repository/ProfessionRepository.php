@@ -39,6 +39,33 @@ class ProfessionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllUsers($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT user.id, user.nom , user.description, profession.metier,user.created_at FROM user 
+        JOIN user_profession on user.id = user_profession.user_id
+        JOIN profession on profession.id = user_profession.profession_id WHERE profession_id='.$id;
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+    // public function findAllUsers($id)
+    // {
+    //     return    $this->getEntityManager()
+    //     ->createQueryBuilder('s')
+    //     ->select('cst.custName, ce.ceContactName,ce.ceExternContactId, 
+    //     cst.custAdress1,  cst.custZipcode, cst.custCity, cst.szidcountry, ce.ceCustomerIdFk')
+    //     ->from('App\Entity\Traitement:ContactExchange', 'ce')
+    //     ->leftJoin('App\Entity\Bdf:Customer', 'cst', 'WITH', 'cst.idCustomer = ce.ceCustomerIdFk')
+    //     ->getQuery()
+    //     ->getArrayResult();
+    // }
+    
+
 //    /**
 //     * @return Profession[] Returns an array of Profession objects
 //     */

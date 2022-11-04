@@ -1,3 +1,9 @@
+
+@font-face {
+    font-family:'Cantarell',sans-serif, 'Gentium Book Basic', 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@1,400;1,700&family=Gentium+Book+Basic&family=Roboto:ital@1&display=swap');
+}
 body {
-    background-color: lightgray;
+    background-color: #4949b8;
+    font-style: Roboto;
 }
